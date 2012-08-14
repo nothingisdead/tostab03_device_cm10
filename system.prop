@@ -1,0 +1,16 @@
+#
+# system.prop for tostab03
+#
+
+ro.kernel.android.checkjni=0
+ro.HOME_APP_ADJ=1
+debug.sf.hw=1
+wifi.supplicant_scan_interval=195
+pm.sleep_mode=1
+ro.ril.disable.power.collapse=0
+video.accelerate.hw=1
+debug.performance.tuning=1
+dalvik.vm.verify-bytecode=false
+dalvik.vm.execution-mode=int:jit
+persist.sys.use_dithering=0
+windowsmgr.max_events_per_sec=240

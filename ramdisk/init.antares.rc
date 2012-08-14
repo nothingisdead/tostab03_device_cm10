@@ -1,0 +1,233 @@
+import init.antares.usb.rc
+
+on early-init
+    mount debugfs debugfs /sys/kernel/debug
+
+    export EXTERNAL_STORAGE /mnt/sdcard
+    # for backwards compatibility
+    symlink /mnt/sdcard /sdcard
+
+
+on fs
+    mount ext4 /dev/block/platform/sdhci-tegra.3/by-num/p3 /system wait ro
+    setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
+    mount ext4 /dev/block/platform/sdhci-tegra.3/by-num/p7 /data wait noatime nosuid nodev journal_async_commit,data=ordered,nodelalloc,errors=panic
+    mount ext4 /dev/block/platform/sdhci-tegra.3/by-num/p4 /cache wait noatime nosuid nodev journal_async_commit,data=ordered,nodelalloc,errors=panic
+
+on post-fs-data
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    mkdir /data/nvcam 0777 system system
+    chown dhcp dhcp /data/misc/dhcp
+
+    # Set indication (checked by vold) that we have finished this action
+    setprop vold.post_fs_data_done 1
+
+on boot
+# bluetooth
+    # power up/down interface
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+
+# Audio
+    chown media media /sys/devices/platform/tegra-snd-wm8903.0/input_source
+    chown media media /sys/devices/platform/tegra-snd-wm8903.0/voice_call
+    chown media media /sys/devices/platform/tegra-snd-wm8903.0/audio_mode
+    chown media media /sys/devices/platform/tegra-snd-wm8903.0/jack_status
+    chown system system /sys/devices/platform/tegra-i2c.0/i2c-0/0-0060/fm34_enable
+
+# dmieep permission
+    chmod 666 /dev/dmieep
+
+# create directory for srs_processing.cfg       //kikugawa 2012/05/24
+    mkdir /data/proc 0770 audio audio
+
+
+# backlight
+    chown system system /sys/class/backlight/pwm-backlight/brightness
+
+
+# dc param for mmp
+    chown system system /sys/devices/tegradc.0/gamma
+    chown media media /sys/devices/tegradc.0/dvcontrol
+
+# Sensor
+    chmod 664 /sys/bus/iio/devices/device0/illuminance0_input
+    chmod 664 /sys/bus/iio/devices/device0/proximity_raw
+    chmod 666 /dev/isl29018
+
+# Daniel Wang add for scorpio
+    chmod 777 /dev/nvtec
+
+# Power management settings
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 216000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1000000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 216000
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1000000
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpufreq/interactive/go_maxspeed_load 80
+    write /sys/module/cpuidle/parameters/lp2_in_idle 1
+
+# Touchscreen Config-UI interface
+   chmod 666 /sys/devices/platform/tegra-i2c.0/i2c-0/0-005a/debug_enable
+   chmod 666 /sys/devices/platform/tegra-i2c.0/i2c-0/0-005a/pause_driver
+   chmod 666 /sys/devices/platform/tegra-i2c.0/i2c-0/0-005a/slowscan_enable
+
+# Default Read Ahead value for sdcards
+    write /sys/block/mmcblk0/queue/read_ahead_kb 2048
+    write /sys/block/mmcblk1/queue/read_ahead_kb 2048
+
+# GPS init
+    write /sys/class/gpio/export 203
+    write /sys/class/gpio/gpio203/value 0
+    write /sys/class/gpio/gpio203/direction out
+    chown root system /sys/class/gpio/gpio203/value
+    chmod 0664 /sys/class/gpio/gpio203/value
+    mkdir /data/gps 703
+
+# Wireless LED init
+	chown system system /sys/devices/platform/leds-gpio/leds/RF_LED/brightness
+
+# Adjust file system permission not writable
+    chmod 644 /sys/devices/platform/tegra-i2c.0/i2c-0/0-0044/device0/enable
+    chmod 644 /sys/devices/platform/tegra-i2c.3/i2c-4/4-004c/enable
+    chmod 644 /sys/devices/platform/tegra-i2c.3/i2c-4/4-004c/local_critical
+    chmod 644 /sys/devices/platform/tegra-i2c.3/i2c-4/4-004c/remote_critical
+    chmod 644 /sys/devices/platform/tegra-i2c.3/i2c-4/4-004c/remote_throttling
+    chmod 644 /sys/devices/system/tegra_mc/enable
+    chmod 644 /sys/devices/system/tegra_mc/quantum
+    chmod 644 /sys/devices/system/tegra2_statmon/enable
+    chmod 644 /sys/devices/system/tegra2_statmon/sample_time
+    chmod 755 /data/nvcam
+
+service wpa_supplicant /system/bin/wpa_supplicant \
+    -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+#   we will start as root and wpa_supplicant will switch to user wifi
+#   after setting up the capabilities required for WEXT
+#   user wifi
+#   group wifi inet keystore
+    class main
+    socket wpa_wlan0 dgram 660 wifi wifi
+    disabled
+    oneshot
+
+# BT MAC
+service btmac-setup /system/bin/bdaddr2
+    class main
+    oneshot
+
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_p2p /system/bin/dhcpcd -aABKL
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_bnep0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_eth0 /system/bin/dhcpcd -ABKL -f/system/etc/dhcpcd/dhcpcd.conf
+    class main
+    disabled
+    oneshot
+
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service iprenew_p2p /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service iprenew_eth0 /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+# Enable NvCpuD, and set it to never poll config again
+on boot
+    setprop nvcpud.enabled true
+    setprop nvcpud.refresh_ms -1
+
+service nvcpud /system/bin/nvcpud
+    class main
+    user root
+    group root
+
+# bugreport is triggered by the VOLUME-DOWN and VOLUME-UP keys
+service bugreport /system/bin/dumpstate -d -v -o /data/storage/bugreports/bugreport
+    class main
+    disabled
+    oneshot
+    keycodes 115 114
+
+#BCM
+service hciattach /system/bin/brcm_patchram_plus --enable_hci --scopcm=0,2,0,0,0,0,0,0,0,0 \
+    --baudrate 3000000 --patchramdir /etc/firmware/ --enable_lpm --tosleep=5000 --create_bdaddr /dev/ttyHS2
+    class main
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+
+# Start GPS daemon
+service gps-daemon /system/bin/glgps_nvidiaTegra2android -c /system/etc/gps/gpsconfig.xml
+    user root
+    socket gps seqpacket 0660 gps system
+    group root
+    class late_start
+
+# Recovery daemon: configure MSC partition
+service recoveryd /system/bin/recoveryd /dev/block/platform/sdhci-tegra.3/by-num/p5
+    disabled
+    class main
+    user root
+    group root
+    oneshot
+
+on property:sys.shutdown.requested=1recovery
+    start recoveryd
+
+# Prepare TF service
+service tf_daemon /system/bin/tf_daemon -storageDir /data/tf -d
+    disabled
+    class main
+    user root
+    group shell
+    oneshot
+
+# create filesystems if necessary
+service setup_fs /system/bin/setup_fs \
+        /dev/block/platform/sdhci-tegra.3/by-num/p7 \
+        /dev/block/platform/sdhci-tegra.3/by-num/p4
+    class core
+    user root
+    group root
+    oneshot
+
+# Create data directory and start service
+on property:tf.enable=y
+    mkdir /data/tf
+    start tf_daemon
+
+# dmiserver
+service dmiserver /system/bin/dmiserver
+    class main
+    oneshot
+
+# Haptic vibrator
+service immvibed /system/bin/immvibed
+    class late_start
+    user shell
+    group shell
+    oneshot
