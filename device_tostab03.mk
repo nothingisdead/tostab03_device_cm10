@@ -31,10 +31,9 @@ endif
 # Files needed for boot image
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel \
-    $(LOCAL_PATH)/ramdisk/init.rc:root/init.rc \
     $(LOCAL_PATH)/ramdisk/init.antares.rc:root/init.antares.rc \
     $(LOCAL_PATH)/ramdisk/init.antares.usb.rc:root/init.antares.usb.rc \
-    $(LOCAL_PATH)/ramdisk/ueventd.antares.rc:root/ueventd.antares.rc
+    $(LOCAL_PATH)/ramdisk/ueventd.antares.rc:root/ueventd.antares.rc \
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -78,9 +77,9 @@ PRODUCT_PROPERTY_OVERRIDES := \
 	mbm.gps.config.supl.enable_ni=yes \
 	mbm.gps.config.supl.allow_uncert=yes \
 	mbm.gps.config.supl.username=test \
-	mbm.gps.config.supl.password=test \
-	persist.sys.usb.config=mtp,adb
+	mbm.gps.config.supl.password=test
 
+ADDITIONAL_DEFAULT_PROPERTIES += persist.sys.usb.config=mtp
 ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
 
 # This device has enough room for precise dalvik

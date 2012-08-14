@@ -1,3 +1,4 @@
+framework/filterfw.jar
 etc/vold.fstab
 etc/gps/gpsconfig.xml
 etc/toshdmi
@@ -58,6 +59,7 @@ lib/hw/lights.tostab03.so
 lib/hw/audio.primary.default.so
 lib/libnvmm_asfparser.so
 lib/libnvodm_dtvtuner.so
+lib/libi2c_ctl.so
 lib/libnvsm.so
 lib/libaudioservice.so
 lib/libnvmmlite_video.so
@@ -77,18 +79,6 @@ lib/libnvmm_utils.so
 lib/libnvodm_misc.so
 lib/libnvaviparserhal.so
 lib/libnvtvmr.so
-lib/vendor/lib/drm/libdrmwvmplugin.so
-lib/vendor/lib/libWVStreamControlAPI_L3.so
-lib/vendor/lib/libwvdrm_L3.so
-lib/vendor/lib/libwvm.so
-lib/vendor/firmware/bcm4330/fw_bcmdhd_p2p.bin
-lib/vendor/firmware/bcm4330/fw_bcmdhd.bin
-lib/vendor/firmware/bcm4330/fw_bcmdhd_apsta.bin
-lib/vendor/firmware/bcm4329/fw_bcmdhd_p2p.bin
-lib/vendor/firmware/bcm4329/fw_bcmdhd.bin
-lib/vendor/firmware/bcm4329/fw_bcmdhd_apsta.bin
-lib/vendor/firmware/fw_bcm4329_apsta.bin
-lib/vendor/firmware/fw_bcm4329.bin
 lib/libnvmm_image.so
 lib/libeglstreamtexture.so
 lib/libnvmm_aviparser.so
@@ -109,6 +99,7 @@ lib/libardrv_dynamic.so
 lib/libnvwsi.so
 lib/libcgdrv.so
 lib/libnvmmlite_audio.so
+lib/libDmiService.so
 lib/libnvhdmi3dplay_jni.so
 lib/libnvddk_2d_v2.so
 lib/libnvmm_camera.so
@@ -148,6 +139,11 @@ vendor/firmware/bcm4329/fw_bcmdhd.bin
 vendor/firmware/bcm4329/fw_bcmdhd_apsta.bin
 vendor/firmware/fw_bcm4329_apsta.bin
 vendor/firmware/fw_bcm4329.bin
+bin/dmiserver
+bin/setup_fs
+bin/rild
+bin/bdaddr2
+bin/nvcpud
 usr/share/zoneinfo/zoneinfo.idx
 usr/share/zoneinfo/zoneinfo.dat
 usr/share/zoneinfo/zoneinfo.version

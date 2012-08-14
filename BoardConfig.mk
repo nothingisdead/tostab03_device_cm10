@@ -43,7 +43,7 @@ BOARD_KERNEL_PAGESIZE :=
 
 # EGL settings
 BOARD_EGL_CFG := device/toshiba/tostab03/prebuilt/egl.cfg
-USE_OPENGL_RENDERER := false
+USE_OPENGL_RENDERER := true
 
 # Misc display settings
 BOARD_USE_SKIA_LCDTEXT := true
