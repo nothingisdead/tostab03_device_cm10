@@ -31,6 +31,7 @@ endif
 # Files needed for boot image
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel \
+    $(LOCAL_PATH)/ramdisk/init.rc:root/init.rc \
     $(LOCAL_PATH)/ramdisk/init.antares.rc:root/init.antares.rc \
     $(LOCAL_PATH)/ramdisk/init.antares.usb.rc:root/init.antares.usb.rc \
     $(LOCAL_PATH)/ramdisk/ueventd.antares.rc:root/ueventd.antares.rc \
@@ -58,7 +59,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	com.android.future.usb.accessory \
 	make_ext4fs \
-	libasound
+	libasound \
+	mischelp
 
 # Properties specific for this device
 PRODUCT_PROPERTY_OVERRIDES := \

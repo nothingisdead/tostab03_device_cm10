@@ -1,4 +1,5 @@
 framework/filterfw.jar
+framework/com.toshiba.ec.jar
 etc/vold.fstab
 etc/gps/gpsconfig.xml
 etc/toshdmi
@@ -131,14 +132,11 @@ vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/libWVStreamControlAPI_L3.so
 vendor/lib/libwvdrm_L3.so
 vendor/lib/libwvm.so
-vendor/firmware/bcm4330/fw_bcmdhd_p2p.bin
-vendor/firmware/bcm4330/fw_bcmdhd.bin
-vendor/firmware/bcm4330/fw_bcmdhd_apsta.bin
-vendor/firmware/bcm4329/fw_bcmdhd_p2p.bin
-vendor/firmware/bcm4329/fw_bcmdhd.bin
-vendor/firmware/bcm4329/fw_bcmdhd_apsta.bin
+vendor/firmware/fw_bcmdhd_p2p.bin
+vendor/firmware/fw_bcmdhd.bin
 vendor/firmware/fw_bcm4329_apsta.bin
 vendor/firmware/fw_bcm4329.bin
+vendor/firmware/fw_bcmdhd_apsta.bin
 bin/dmiserver
 bin/setup_fs
 bin/rild
