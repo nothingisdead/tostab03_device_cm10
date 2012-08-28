@@ -35,6 +35,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ramdisk/init.antares.usb.rc:root/init.antares.usb.rc \
     $(LOCAL_PATH)/ramdisk/ueventd.antares.rc:root/ueventd.antares.rc \
 
+# Boot Animation
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/bootanimation.zip:system/media/bootanimation.zip
+
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
@@ -71,7 +75,6 @@ PRODUCT_PROPERTY_OVERRIDES := \
 	dalvik.vm.dexopt-data-only=1 \
 	ro.toshiba.device_wwan=0 \
 	ro.sf.hwrotation=0 \
-	ro.bootanim.hwrotation=270 \
 	mbm.gps.config.gps_ctrl=/dev/cdc-wdm0 \
 	mbm.gps.config.gps_nmea=/dev/ttyACM2 \
 	mbm.gps.config.gps_pref_mode=MEGPS \

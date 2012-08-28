@@ -37,3 +37,4 @@
 /dev/timerinfo	0444	system	system
 /dev/tspdrv     0666    root    root
 /dev/tegra-crypto      0660    system  system
+/dev/rfkill     0660    wifi    wifi
