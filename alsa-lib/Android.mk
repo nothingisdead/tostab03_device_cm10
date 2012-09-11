@@ -20,6 +20,7 @@ LOCAL_C_INCLUDES += $(LOCAL_PATH)/include
 LOCAL_CFLAGS := \
 	-fPIC -DPIC -D_POSIX_SOURCE \
 	-DALSA_CONFIG_DIR=\"/system/usr/share/alsa\" \
+	-DALSA_PLUGIN_DIR=\"/system/lib/\" \
 	-DALSA_DEVICE_DIRECTORY=\"/dev/snd/\" \
 	-finline-limit=300 -finline-functions -fno-inline-functions-called-once
 

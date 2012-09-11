@@ -23,7 +23,7 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Board naming
 TARGET_BOARD_PLATFORM := tegra
-TARGET_BOOTLOADER_BOARD_NAME := antares
+TARGET_BOOTLOADER_BOARD_NAME := tostab03
 
 # Target arch settings
 TARGET_NO_RADIOIMAGE := true
@@ -48,6 +48,9 @@ USE_OPENGL_RENDERER := true
 # Misc display settings
 BOARD_USE_SKIA_LCDTEXT := true
 BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
+
+#ICS Camera
+COMMON_GLOBAL_CFLAGS += -DICS_CAMERA_BLOB
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -92,9 +95,9 @@ BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_RECOVERY_INITRC := device/toshiba/tostab03/recovery/init.rc
+TARGET_RECOVERY_PRE_COMMAND := "mischelp /dev/block/mmcblk0p5 boot-recovery; sync" # WHY DOESN'T THIS WORK?? use 'adb shell reboot recovery' for now.
 BOARD_HAS_SDCARD_INTERNAL := true
 
 # Audio
 BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := true
-BUILD_WITH_ALSA_UTILS := true

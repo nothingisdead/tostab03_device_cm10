@@ -466,6 +466,26 @@ typedef struct {
 
 static int safe_strtoll(const char *str, long long *val)
 {
+#ifdef ANDROID
+	/*
+	 * %Li is not supported sscanf() in bionic. %Li works like %i.
+	 * Just lower 4byte is properly written and upper 4byte is not
+	 * deterministic. So, sscanf() is relplaced to strtoll() that is
+	 * supported in bionic libraries.
+	 */
+	char *end;
+	long long v;
+	if (!*str)
+		return -EINVAL;
+	errno = 0;
+	v = strtoll(str, &end, 0);
+	if (errno)
+		return -errno;
+	if (*end)
+		return -EINVAL;
+	*val = v;
+	return 0;
+#else
 	long long v;
 	int endidx;
 	if (!*str)
@@ -477,6 +497,7 @@ static int safe_strtoll(const char *str, long long *val)
 		return -EINVAL;
 	*val = v;
 	return 0;
+#endif
 }
 
 int safe_strtol(const char *str, long *val)
