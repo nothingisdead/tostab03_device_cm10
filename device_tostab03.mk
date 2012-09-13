@@ -65,8 +65,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	com.android.future.usb.accessory \
 	make_ext4fs \
-	libasound \
-	mischelp
+	audio.primary.tegra \
+	audio.a2dp.default \
+	libaudioutils \
+	tinyplay \
+	tinycap \
+	tinymix \
+	liba2dp
 
 # Properties specific for this device
 PRODUCT_PROPERTY_OVERRIDES := \

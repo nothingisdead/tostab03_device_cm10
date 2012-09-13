@@ -70,7 +70,6 @@ WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcm4329_apsta.bin"
 WIFI_DRIVER_MODULE_NAME     := "bcm4329"
 WIFI_DRIVER_MODULE_ARG      := "iface_name=wlan0 firmware_path=/vendor/firmware/fw_bcm4329.bin nvram_path=/system/etc/nvram.txt"
 
-
 # Todo fix these values to the specific sizes
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
@@ -95,9 +94,9 @@ BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_RECOVERY_INITRC := device/toshiba/tostab03/recovery/init.rc
-TARGET_RECOVERY_PRE_COMMAND := "mischelp /dev/block/mmcblk0p5 boot-recovery; sync" # WHY DOESN'T THIS WORK?? use 'adb shell reboot recovery' for now.
+TARGET_RECOVERY_PRE_COMMAND := "setboot"
 BOARD_HAS_SDCARD_INTERNAL := true
 
 # Audio
-BOARD_USES_GENERIC_AUDIO := false
-BOARD_USES_ALSA_AUDIO := true
+BOARD_USES_GENERIC_AUDIO := true
+BOARD_USES_AUDIO_LEGACY := false
