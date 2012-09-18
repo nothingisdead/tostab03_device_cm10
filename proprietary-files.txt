@@ -31,7 +31,6 @@ etc/wv.cfg
 etc/nvram.txt
 etc/media_profiles.xml
 etc/asound.conf
-lib/libmpl.so
 lib/libnvrm.so
 lib/libnvcpud_client.so
 lib/libnvmm_misc.so
@@ -82,7 +81,6 @@ lib/libnvwsi.so
 lib/libcgdrv.so
 lib/libnvmmlite_audio.so
 lib/libDmiService.so
-lib/libmllite.so
 lib/libnvhdmi3dplay_jni.so
 lib/libnvddk_2d_v2.so
 lib/libnvmm_camera.so

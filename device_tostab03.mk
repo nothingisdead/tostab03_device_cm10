@@ -71,7 +71,8 @@ PRODUCT_PACKAGES += \
 	tinyplay \
 	tinycap \
 	tinymix \
-	liba2dp
+	liba2dp \
+	libinvensense_hal
 
 # Properties specific for this device
 PRODUCT_PROPERTY_OVERRIDES := \

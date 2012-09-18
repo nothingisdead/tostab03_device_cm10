@@ -92,13 +92,19 @@ on boot
     write /sys/block/mmcblk0/queue/read_ahead_kb 2048
     write /sys/block/mmcblk1/queue/read_ahead_kb 2048
 
+#GPS
+    mkdir /data/gps
+    chown gps system /data/gps
+    chmod 770 /data/gps
+    chown gps /dev/ttyHS1
+    chmod 0664 /dev/ttyHS1
+
 # GPS init
     write /sys/class/gpio/export 203
     write /sys/class/gpio/gpio203/value 0
     write /sys/class/gpio/gpio203/direction out
     chown root system /sys/class/gpio/gpio203/value
     chmod 0664 /sys/class/gpio/gpio203/value
-    mkdir /data/gps 703
 
 # Wireless LED init
     chown system system /sys/devices/platform/leds-gpio/leds/RF_LED/brightness
@@ -206,7 +212,7 @@ service gps-daemon /system/bin/glgps_nvidiaTegra2android -c /system/etc/gps/gpsc
     user root
     socket gps seqpacket 0660 gps system
     group root
-    class late_start
+    class main
 
 # Recovery daemon: configure MSC partition
 service recoveryd /system/bin/setboot recovery

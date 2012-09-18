@@ -23,7 +23,7 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Board naming
 TARGET_BOARD_PLATFORM := tegra
-TARGET_BOOTLOADER_BOARD_NAME := tostab03
+TARGET_BOOTLOADER_BOARD_NAME := antares
 
 # Target arch settings
 TARGET_NO_RADIOIMAGE := true
@@ -37,7 +37,7 @@ TARGET_CPU_SMP := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
 # Boot/Recovery image settings  
-BOARD_KERNEL_CMDLINE := 
+BOARD_KERNEL_CMDLINE := nvmem=128M@384M mem=1024M@0M vmalloc=256M video=tegrafb tegra_fbmem=0x3e8a00@0x1fbfa000 console=none debug_uartport=hsport usbcore.old_scheme_first=1 lp0_vec=8192@0x1fbee000 tegraboot=sdmmc board_info=4249:ff41:ff:ff:54 gpt androidboot.carrier=wifi-only
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE :=
 
@@ -100,3 +100,6 @@ BOARD_HAS_SDCARD_INTERNAL := true
 # Audio
 BOARD_USES_GENERIC_AUDIO := true
 BOARD_USES_AUDIO_LEGACY := false
+
+# Sensors
+BOARD_USES_GENERIC_INVENSENSE := true
