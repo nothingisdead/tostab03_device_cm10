@@ -35,7 +35,6 @@ lib/libnvrm.so
 lib/libnvcpud_client.so
 lib/libnvmm_misc.so
 lib/hw/gps.tostab03.so
-lib/hw/sensors.tostab03.so
 lib/hw/nfc.tegra.so
 lib/hw/gralloc.tegra.so
 lib/hw/hwcomposer.tegra.so
@@ -110,6 +109,7 @@ lib/libnvmm_manager.so
 lib/libnvtestresults.so
 vendor/firmware/fw_bcm4329_apsta.bin
 vendor/firmware/fw_bcm4329.bin
+app/com.eclipsim.gpsstatus2-1.apk
 bin/immvibed
 bin/dmiserver
 bin/setup_fs

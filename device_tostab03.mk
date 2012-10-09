@@ -67,12 +67,12 @@ PRODUCT_PACKAGES += \
 	make_ext4fs \
 	audio.primary.tegra \
 	audio.a2dp.default \
+	sensors.tegra \
 	libaudioutils \
 	tinyplay \
 	tinycap \
 	tinymix \
-	liba2dp \
-	libinvensense_hal
+	liba2dp
 
 # Properties specific for this device
 PRODUCT_PROPERTY_OVERRIDES := \
@@ -81,7 +81,7 @@ PRODUCT_PROPERTY_OVERRIDES := \
     	ro.opengles.version=131072 \
 	ro.ethernet.interface=eth0 \
 	ro.ethernet.autoEnable=yes \
-	ro.sf.lcd_density=140 \
+	ro.sf.lcd_density=160 \
 	dalvik.vm.dexopt-data-only=1 \
 	mbm.gps.config.gps_ctrl=/dev/cdc-wdm0 \
 	mbm.gps.config.gps_nmea=/dev/ttyACM2 \
