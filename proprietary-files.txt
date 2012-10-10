@@ -31,10 +31,12 @@ etc/wv.cfg
 etc/nvram.txt
 etc/media_profiles.xml
 etc/asound.conf
+lib/libmpl.so
 lib/libnvrm.so
 lib/libnvcpud_client.so
 lib/libnvmm_misc.so
 lib/hw/gps.tostab03.so
+lib/hw/sensors.tostab03.so
 lib/hw/nfc.tegra.so
 lib/hw/gralloc.tegra.so
 lib/hw/hwcomposer.tegra.so
@@ -54,6 +56,7 @@ lib/libnvparser.so
 lib/libnvmm_writer.so
 lib/libnvmm_contentpipe.so
 lib/libnvomxilclient.so
+lib/libmlplatform.so
 lib/libnvasfparserhal.so
 lib/libGLESv2.so
 lib/libnvodm_query.so
@@ -80,6 +83,7 @@ lib/libnvwsi.so
 lib/libcgdrv.so
 lib/libnvmmlite_audio.so
 lib/libDmiService.so
+lib/libmllite.so
 lib/libnvhdmi3dplay_jni.so
 lib/libnvddk_2d_v2.so
 lib/libnvmm_camera.so

@@ -67,7 +67,6 @@ PRODUCT_PACKAGES += \
 	make_ext4fs \
 	audio.primary.tegra \
 	audio.a2dp.default \
-	sensors.tegra \
 	libaudioutils \
 	tinyplay \
 	tinycap \
