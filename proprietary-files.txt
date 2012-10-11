@@ -35,14 +35,14 @@ lib/libmpl.so
 lib/libnvrm.so
 lib/libnvcpud_client.so
 lib/libnvmm_misc.so
-lib/hw/gps.tostab03.so
-lib/hw/sensors.tostab03.so
+lib/hw/lights.tegra.so
 lib/hw/nfc.tegra.so
 lib/hw/gralloc.tegra.so
 lib/hw/hwcomposer.tegra.so
 lib/hw/gralloc.default.so
 lib/hw/camera.tegra.so
-lib/hw/lights.tostab03.so
+lib/hw/sensors.tegra.so
+lib/hw/gps.tegra.so
 lib/libnvmm_asfparser.so
 lib/libnvodm_dtvtuner.so
 lib/libi2c_ctl.so
@@ -99,6 +99,7 @@ lib/libnvodm_hdmi.so
 lib/libnvmm_parser.so
 lib/libnvmm_msaudio.so
 lib/libnvdispmgr_d.so
+lib/libstagefrighthw.so
 lib/libGLESv2_dbg.so
 lib/libnvmm_video.so
 lib/libnvos.so
