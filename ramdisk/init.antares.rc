@@ -214,6 +214,17 @@ service gps-daemon /system/bin/glgps_nvidiaTegra2android -c /system/etc/gps/gpsc
     group root
     class main
 
+# Force download of long term orbit data (lto.dat)
+# for Broadcom aGPS
+service gps-lto-dat /system/bin/logwrapper /system/bin/get-gps-lto
+    user root
+    group root
+    disabled
+    oneshot
+
+on property:init.svc.wpa_supplicant=running
+    start gps-lto-dat
+
 # Recovery daemon: configure MSC partition
 service recoveryd /system/bin/setboot recovery
     disabled

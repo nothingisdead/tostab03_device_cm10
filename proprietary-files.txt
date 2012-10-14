@@ -116,6 +116,7 @@ vendor/firmware/fw_bcm4329_apsta.bin
 vendor/firmware/fw_bcm4329.bin
 app/com.eclipsim.gpsstatus2-1.apk
 bin/immvibed
+bin/get-gps-lto
 bin/dmiserver
 bin/setup_fs
 bin/glgps_nvidiaTegra2android
