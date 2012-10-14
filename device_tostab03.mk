@@ -82,7 +82,7 @@ PRODUCT_PACKAGES += \
 
 # Properties specific for this device
 PRODUCT_PROPERTY_OVERRIDES := \
-	drm.service.enabled=true
+	drm.service.enabled=true\
     	wifi.interface=wlan0 \
     	wifi.supplicant_scan_interval=15 \
     	ro.opengles.version=131072 \
