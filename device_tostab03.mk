@@ -72,7 +72,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	com.android.future.usb.accessory \
 	make_ext4fs \
-	audio.primary.tegra \
 	audio.a2dp.default \
 	libaudioutils \
 	tinyplay \
