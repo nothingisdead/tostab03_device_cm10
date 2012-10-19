@@ -28,26 +28,30 @@
         emulated:   the storage is emulated via the FUSE sdcard daemon
         mtp-reserve: number of megabytes of storage MTP should reserve for free storage
                      (used for emulated storage that is shared with system's data partition)
+        allowMassStorage: (boolean) true if this volume can be shared via USB mass storage
+        maxFileSize: (integer) maximum file size in megabytes
 
       A storage should not have both emulated and removable set to true
 -->
 
 <StorageList xmlns:android="http://schemas.android.com/apk/res/android">
-    <storage android:mountPoint="/mnt/sdcard"
-             android:storageDescription="@string/storage_internal"
-             android:primary="true"
-             android:emulated="true"
-             android:mtpReserve="100" />
-    <storage android:mountPoint="/mnt/sdcard2" 
-             android:storageDescription="@string/storage_sd_card" 
-             android:primary="false" 
-             android:removable="true" />
-    <storage android:mountPoint="/mnt/usb0" 
-             android:storageDescription="@string/storage_usb" 
-             android:primary="false" 
-             android:removable="true" />
-    <storage android:mountPoint="/mnt/usb1" 
-             android:storageDescription="@string/storage_usb" 
-             android:primary="false" 
-             android:removable="true" />
+    <!-- internal emulated storage -->
+    <storage android:mountPoint="/storage/sdcard0"
+            android:storageDescription="@string/storage_internal"
+            android:primary="true"
+            android:emulated="true"
+            android:mtpReserve="100" />
+    <!-- SD Card -->
+    <storage android:mountPoint="/storage/sdcard2"
+            android:storageDescription="@string/storage_sd_card"
+            android:removable="true"
+            android:maxFileSize="4096" />
+    <!-- external USB drive -->
+    <storage android:mountPoint="/storage/usbdisk0"
+            android:storageDescription="@string/storage_usb"
+            android:removable="true" />
+    <!-- external USB drive -->
+    <storage android:mountPoint="/storage/usbdisk1"
+            android:storageDescription="@string/storage_usb"
+            android:removable="true" />
 </StorageList>

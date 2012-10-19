@@ -34,6 +34,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ramdisk/init.antares.rc:root/init.antares.rc \
     $(LOCAL_PATH)/ramdisk/init.antares.usb.rc:root/init.antares.usb.rc \
     $(LOCAL_PATH)/ramdisk/ueventd.antares.rc:root/ueventd.antares.rc \
+    $(LOCAL_PATH)/ramdisk/fstab.antares:root/fstab.antares
 
 # Boot Animation
 PRODUCT_COPY_FILES += \
@@ -65,14 +66,22 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/common_drm/tablet/vendor/lib/libwvdrm_L3.so:system/vendor/lib/libwvdrm_L3.so \
     $(LOCAL_PATH)/prebuilt/common_drm/tablet/vendor/lib/libwvm.so:system/vendor/lib/libwvm.so \
     $(LOCAL_PATH)/prebuilt/common_drm/tablet/vendor/lib/libWVStreamControlAPI_L3.so:system/vendor/lib/libWVStreamControlAPI_L3.so \
-    $(LOCAL_PATH)/prebuilt/common_drm/tablet/vendor/lib/drm/libdrmwvmplugin.so:system/vendor/lib/drm/libdrmwvmplugin.so
+    $(LOCAL_PATH)/prebuilt/common_drm/tablet/vendor/lib/drm/libdrmwvmplugin.so:system/vendor/lib/drm/libdrmwvmplugin.so \
+    $(LOCAL_PATH)/prebuilt/srs_processing.cfg:system/data/srs_processing.cfg
 
+
+# this device has enough room for precise dalvik
+PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Extra packages to build for this device
 PRODUCT_PACKAGES += \
+	librs_jni \
 	com.android.future.usb.accessory \
 	make_ext4fs \
+	e2fsck \
+	setup_fs \
 	audio.a2dp.default \
+	audio.primary.tegra \
 	libaudioutils \
 	tinyplay \
 	tinycap \
@@ -99,9 +108,6 @@ PRODUCT_PROPERTY_OVERRIDES := \
 
 ADDITIONAL_DEFAULT_PROPERTIES += persist.sys.usb.config=mtp
 ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
-
-# This device has enough room for precise dalvik
-PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Build characteristics settings
 PRODUCT_CHARACTERISTICS := tablet

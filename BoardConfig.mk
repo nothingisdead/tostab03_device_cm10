@@ -46,13 +46,15 @@ BOARD_KERNEL_PAGESIZE :=
 # EGL settings
 BOARD_EGL_CFG := device/toshiba/tostab03/prebuilt/egl.cfg
 USE_OPENGL_RENDERER := true
+BOARD_USES_HGL := true
+BOARD_USES_OVERLAY := true
 
 # Misc display settings
 BOARD_USE_SKIA_LCDTEXT := true
 BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
 
 #ICS Camera - changed to match a100 
-ICS_CAMERA_BLOB := true
+COMMON_GLOBAL_CFLAGS += -DICS_CAMERA_BLOB
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -98,6 +100,7 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_RECOVERY_INITRC := device/toshiba/tostab03/recovery/init.rc
 TARGET_RECOVERY_PRE_COMMAND := "setboot"
 BOARD_HAS_SDCARD_INTERNAL := true
+BOARD_HAS_NO_REAL_SDCARD := true
 
 # Audio
 BOARD_USES_GENERIC_AUDIO := true

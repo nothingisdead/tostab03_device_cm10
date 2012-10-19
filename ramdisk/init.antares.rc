@@ -1,38 +1,37 @@
 import init.antares.usb.rc
 
 on early-init
-
-    loglevel 8
-
     mount debugfs debugfs /sys/kernel/debug
 
-    export EXTERNAL_STORAGE /mnt/sdcard
-    export SECONDARY_STORAGE /mnt/sdcard2
-    mkdir /mnt 0050 system sdcard_r
-    mkdir /mnt/sdcard 0000 system system
-    mkdir /mnt/sdcard2 0000 system system
-    mkdir /mnt/usb0 0000 system system
-    mkdir /mnt/usb1 0000 system system
+    export EXTERNAL_STORAGE /storage/sdcard0
+    export SECONDARY_STORAGE /storage/sdcard2
+    mkdir /storage 0050 system sdcard_r
+    mkdir /storage/sdcard0 0000 system system
+    symlink /storage/sdcard0 /sdcard
+    symlink /storage/sdcard0 /mnt/sdcard
 
-    # for backwards compatibility
-    symlink /mnt/sdcard /sdcard
-
+    # make the pathes for the external media mounts
+    mkdir /storage/sdcard2 0000 system system
+    mkdir /storage/usbdisk0 0000 system system
+    mkdir /storage/usbdisk1 0000 system system
 
 on fs
-    mount ext4 /dev/block/platform/sdhci-tegra.3/by-num/p3 /system wait ro
     setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
-    mount ext4 /dev/block/platform/sdhci-tegra.3/by-num/p7 /data wait noatime nosuid nodev journal_async_commit,data=ordered,nodelalloc,errors=panic
-    mount ext4 /dev/block/platform/sdhci-tegra.3/by-num/p4 /cache wait noatime nosuid nodev journal_async_commit,data=ordered,nodelalloc,errors=panic
+    setprop ro.crypto.umount_sd false
+    mount_all /fstab.antares
+
 
 on post-fs-data
-    mkdir /data/testboot 0777 root root
-
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
-    mkdir /data/nvcam 0777 system system
     chown dhcp dhcp /data/misc/dhcp
 
+    mkdir /data/misc/wminput 0776 system system
+
+    # we will remap this as /mnt/sdcard with the sdcard fuse tool
+    mkdir /data/media 0775 media_rw media_rw
+    chown media_rw media_rw /data/media
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
 
@@ -68,6 +67,14 @@ on boot
     chown media media /sys/devices/tegradc.0/dvcontrol
 
 # Sensor
+    chmod 666 /dev/nvhost-ctrl
+    chmod 666 /dev/nvhost-display
+    chmod 666 /dev/nvhost-dsi
+    chmod 666 /dev/nvhost-gr2d
+    chmod 666 /dev/nvhost-gr3d
+    chmod 666 /dev/nvhost-isp
+    chmod 666 /dev/nvhost-mpe
+    chmod 666 /dev/nvhost-vi
     chmod 664 /sys/bus/iio/devices/device0/illuminance0_input
     chmod 664 /sys/bus/iio/devices/device0/proximity_raw
     chmod 666 /dev/isl29018
@@ -237,28 +244,6 @@ service recoveryd /system/bin/setboot recovery
 
 on property:sys.shutdown.requested=1recovery
     start recoveryd
-
-# Prepare TF service
-service tf_daemon /system/bin/tf_daemon -storageDir /data/tf -d
-    disabled
-    class main
-    user root
-    group shell
-    oneshot
-
-# create filesystems if necessary
-service setup_fs /system/bin/setup_fs \
-        /dev/block/platform/sdhci-tegra.3/by-num/p7 \
-        /dev/block/platform/sdhci-tegra.3/by-num/p4
-    class core
-    user root
-    group root
-    oneshot
-
-# Create data directory and start service
-on property:tf.enable=y
-    mkdir /data/tf
-    start tf_daemon
 
 # dmiserver
 service dmiserver /system/bin/dmiserver
