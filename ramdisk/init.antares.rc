@@ -6,14 +6,14 @@ on early-init
     export EXTERNAL_STORAGE /storage/sdcard0
     export SECONDARY_STORAGE /storage/sdcard2
     mkdir /storage 0050 system sdcard_r
-    mkdir /storage/sdcard0 0000 system system
+    mkdir /storage/sdcard0 0755 system system
     symlink /storage/sdcard0 /sdcard
     symlink /storage/sdcard0 /mnt/sdcard
 
     # make the pathes for the external media mounts
-    mkdir /storage/sdcard2 0000 system system
-    mkdir /storage/usbdisk0 0000 system system
-    mkdir /storage/usbdisk1 0000 system system
+    mkdir /storage/sdcard2 0755 system system
+    mkdir /storage/usbdisk0 0755 system system
+    mkdir /storage/usbdisk1 0755 system system
 
 on fs
     setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
@@ -116,7 +116,7 @@ on boot
     chmod 0664 /sys/class/gpio/gpio203/value
 
 # Wireless LED init
-    chown system system /sys/devices/platform/leds-gpio/leds/RF_LED/brightness
+    chown wifi wifi /sys/devices/platform/leds-gpio/leds/RF_LED/brightness
 
 # Adjust file system permission not writable
     chmod 644 /sys/devices/platform/tegra-i2c.0/i2c-0/0-0044/device0/enable

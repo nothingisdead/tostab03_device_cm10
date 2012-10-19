@@ -69,8 +69,8 @@
       <value>148</value> <!--   1 GHz -->
   </array>
   <!-- This is the battery capacity in mAh -->
-  <item name="battery.capacity">3300</item>
+  <item name="battery.capacity">2030</item>
       <!--
-      Battery capacity is 3300 mAH (at 7.4 Volts)
+      Battery capacity is 2030 mAH (at 7.4 Volts)
       -->
 </device>
